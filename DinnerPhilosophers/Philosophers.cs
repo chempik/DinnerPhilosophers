@@ -16,17 +16,20 @@ namespace DinnerPhilosophers
         {
             while (!token.IsCancellationRequested)
             {
-                var takeLeftStick = Left.TakeStick();
-                var takeRightStick = Right.TakeStick();
-                if (takeLeftStick && takeRightStick)
+                bool rightStick = false;
+                bool leftStick = false;
+                Left.TakeStick(ref leftStick);
+                Right.TakeStick(ref rightStick);
+
+                if (rightStick && leftStick)
                 {
                     ++Ate;
                     Console.WriteLine($"{Name} eat {Ate} time");
                     //a highly respected philosopher needs time to eat
                     Thread.Sleep(2000);
                 }
-                if (takeLeftStick) Left.PutStick();
-                if (takeRightStick) Right.PutStick();
+                if (leftStick) Left.PutStick();
+                if (rightStick) Right.PutStick();
 
                 //a highly respected philosopher needs time to think
                 Thread.Sleep(2000);

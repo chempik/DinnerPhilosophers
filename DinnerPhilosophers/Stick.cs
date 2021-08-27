@@ -10,11 +10,9 @@ namespace DinnerPhilosophers
         private object _locker = new object();
         private TimeSpan _time = new TimeSpan (4000);
 
-        public bool TakeStick()
+        public void TakeStick(ref bool getLock)
         {
-            if (Monitor.TryEnter(_locker, _time)) return true;
-
-            else return false;
+            Monitor.TryEnter(_locker, 2000, ref getLock);
         }
 
         public void PutStick()
