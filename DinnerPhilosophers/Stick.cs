@@ -7,17 +7,19 @@ namespace DinnerPhilosophers
 {
     public class Stick
     {
-        private Mutex _mute = new Mutex(); 
+        private object _locker = new object();
+        private TimeSpan _time = new TimeSpan (4000);
 
         public bool TakeStick()
         {
-            if (_mute.WaitOne(3000)) return true;
+            if (Monitor.TryEnter(_locker, _time)) return true;
+
             else return false;
         }
 
         public void PutStick()
         {
-            _mute.ReleaseMutex();
+            Monitor.Exit(_locker);
         }
     }
 }

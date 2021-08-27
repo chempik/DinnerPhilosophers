@@ -58,6 +58,8 @@ namespace DinnerPhilosophers
 
             cancelTokenSource.Cancel();
 
+            Thread.Sleep(2000);
+            Console.WriteLine("______________________");
             foreach (var i in philosophers)
             {
                 Console.WriteLine($"{i.Name}, ate {i.Ate} times");
